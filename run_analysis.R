@@ -1,5 +1,7 @@
 library(dplyr)
 library(reshape2)
+
+tidy_data <- function() {
 features <- read.table('data/features.txt')
 activities <- read.table('data/activity_labels.txt')
 colnames(activities) <- c('id', 'name')
@@ -25,4 +27,5 @@ tidy1 <- cbind(tidy1, subjects, y_data)
 
 melted <- melt(tidy1, id=c("subject_id", "activity_id", "name"))
 nicentidy <- dcast(melted, subject_id+name~variable, mean)
-write.table(nicentidy, "tidy.csv", row.name=FALSE, sep=",")
+write.table(nicentidy, "tidy.txt", row.name=FALSE, sep="\t")
+}
